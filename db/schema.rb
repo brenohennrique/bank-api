@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_161539) do
+ActiveRecord::Schema.define(version: 2020_05_10_171753) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", limit: 50
@@ -21,4 +21,16 @@ ActiveRecord::Schema.define(version: 2020_05_10_161539) do
     t.index ["name"], name: "index_accounts_on_name", unique: true
   end
 
+  create_table "transfers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "source_account_id", null: false
+    t.bigint "destination_account_id", null: false
+    t.decimal "amount", precision: 8, scale: 2, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["destination_account_id"], name: "index_transfers_on_destination_account_id"
+    t.index ["source_account_id"], name: "index_transfers_on_source_account_id"
+  end
+
+  add_foreign_key "transfers", "accounts", column: "destination_account_id"
+  add_foreign_key "transfers", "accounts", column: "source_account_id"
 end
