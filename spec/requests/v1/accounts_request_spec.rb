@@ -19,4 +19,21 @@ RSpec.describe 'V1::Accounts', type: :request do
       it { expect(response).to have_http_status(422) }
     end
   end
+
+  describe 'GET /v1/accounts/balance' do
+    let(:account) { create(:account) }
+
+    context "when request is valid" do
+      before { get '/v1/accounts/balance', headers: valid_headers  }
+
+      it { expect(response).to have_http_status(200) }
+      it { expect(json['balance_amount'].to_f).to eq(account.balance_amount.to_f) }
+    end
+
+    context "when request is valid" do
+      before { get '/v1/accounts/balance', headers: invalid_headers  }
+
+      it { expect(response).to have_http_status(401) }
+    end
+  end
 end

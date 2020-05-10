@@ -1,4 +1,6 @@
 class V1::AccountsController < ApplicationController
+  before_action :authenticate_account!, only: %i[balance]
+
   def create
     account = Account.new(account_params_create)
 
@@ -7,6 +9,10 @@ class V1::AccountsController < ApplicationController
     else
       render json: account.errors, status: :unprocessable_entity
     end
+  end
+
+  def balance
+    render json: @current_account, serializer: V1::BalanceAccountSerializer
   end
 
   private
