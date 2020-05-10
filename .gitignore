@@ -28,3 +28,6 @@
 
 # Enviroment
 .env
+
+# Ignore folder coverage
+coverage/
