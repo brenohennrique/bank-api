@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_05_10_171753) do
 
-  create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", limit: 50
     t.decimal "balance_amount", precision: 8, scale: 2, default: "0.0"
     t.string "password_digest"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_171753) do
     t.index ["name"], name: "index_accounts_on_name", unique: true
   end
 
-  create_table "transfers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "transfers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "source_account_id", null: false
     t.bigint "destination_account_id", null: false
     t.decimal "amount", precision: 8, scale: 2, null: false

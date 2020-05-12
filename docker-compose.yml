@@ -1,0 +1,30 @@
+version: '2'
+
+volumes:
+  db_data:
+    driver: local
+
+services:
+  web:
+    build: .
+    depends_on:
+      - 'db'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/bank_api
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      RAILS_ENV: development
+      RAILS_MASTER_KEY: fc27f723514b08fbbc7327cb9fa42778
+
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - 'db_data:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
